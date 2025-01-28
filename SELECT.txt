@@ -1,0 +1,14 @@
+SELECT 
+    s1.student_name AS student1,
+    s2.student_name AS student2,
+    c.course_name
+FROM 
+    enrollments e1
+JOIN 
+    enrollments e2 ON e1.course_id = e2.course_id AND e1.student_id < e2.student_id
+JOIN 
+    students s1 ON e1.student_id = s1.student_id
+JOIN 
+    students s2 ON e2.student_id = s2.student_id
+JOIN 
+    courses c ON e1.course_id = c.course_id;
