@@ -1,0 +1,31 @@
+CREATE TABLE Student11 (
+    studentid INT PRIMARY KEY,
+    studentname VARCHAR(50) NOT NULL
+);
+
+
+INSERT INTO Student11 (studentid, studentname)
+VALUES
+    (1, 'Aarav'),
+    (2, 'Anaya'),
+    (3, 'Ishaan'),
+    (4, 'Diya'),
+    (5, 'Aditi');
+
+
+CREATE TABLE Student12 (
+    studentid INT PRIMARY KEY,
+    studentname VARCHAR(50) NOT NULL
+);
+
+
+INSERT INTO Student12 (studentid, studentname)
+VALUES
+    (1, 'Aarav'),   -- Common with Student1
+    (2, 'Anaya'),   -- Common with Student1
+    (6, 'Rohan'),
+    (7, 'Meera'),
+    (8, 'Vihan');
+    
+    select * from student11 union  select * from student12;
+       select * from student11 union all select * from student12;
