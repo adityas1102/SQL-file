@@ -1,0 +1,239 @@
+# to create the database 
+create database JavaTestingPython;
+
+# to see the list of databases
+show databases;
+
+# to use the database 
+use JavaTestingPython;
+
+create table Student(
+	id int not null,
+    name varchar(20) unique,
+    age int check(age > 18 ),
+    marks int default 35
+);
+
+# to see the description of the table
+desc student;
+
+# insert : to insert the values into table 
+insert into Student values (1 ,"Bhargavi",23,80),
+						   (2 ,"Shruti	",24,90),
+                           (3 ,"bhushan",25,100),
+                           (4 ,"aditya",26,60),
+                           (5 ,"Bhagyashri",19,40),
+                           (6 ,"Shrutika",20,30);
+
+select * from student where marks > 50 and age > 24 ;
+
+select * from student order by marks desc;
+
+select sum(marks) from student ;
+
+# for update 
+update  student set name = "seema" where id = 1 ;
+
+# to delete the recod from the table 
+delete from student where id = 6 ;
+
+# to delete the data from the table 
+truncate student;
+
+# to detele the table
+drop table student;
+
+create table Employee(
+			id int , 
+            name varchar(20),
+            age int ,
+			dept varchar(20),
+            salary int ,
+			manager varchar(20)
+);
+
+insert into employee values (1 , "aditya",10,"Java Developer",50000,"ABCD"),
+							(2 , "Anas",20,"Tester",60000,"ABCD"),
+                            (3 , "Rahul",10,".NET Developer",70000,"ABCD"),
+                            (4 , "Bhushan",10,"AI Developer",80000,"XYZ"),
+                            (5 , "prasad",10,"Python Developer",90000,"ABCD"),
+                            (6 , "sanket",10,"Java Developer",40000,"ABCD"),
+                            (7 , "om",10,"Python Developer",30000,"XYZ"),
+                            (8 , "bhavesh",10,"MERN STACK",20000,"ABCD"),
+                            (9 , "sakshi",10,"Python Developer",10000,"XYZ"),
+                            (10 , "yashada",10,"MERN STACK",90000,"ABCD");
+                            
+select * from employee;
+
+select count(dept) from employee group by dept having count(dept) > 2  ;
+
+use itpdjava;
+show tables;
+
+create table Person(
+	id int primary key ,
+    name varchar(20),
+    age int ,
+    address varchar(20)
+);
+
+desc Person;
+create table Orders(
+	id int primary key ,
+    OrderNumber int ,
+    custId int ,
+    foreign key (custId) references Person(id)
+);
+
+desc Orders;
+
+insert into person values (1,'ram',   23 , 'hadpsar'),
+						  (2,'Luffy', 21 , 'Pune'),
+                          (3,'zoro',  22 , 'satara'),
+                          (4,'sanjhi',23 , 'saswad'),
+                          (5,'nami',  24 , 'Hinjewadi'),
+                          (6,'naruto',25 , 'chinchwad'),
+                          (7,'sakura',26 , 'deccan');
+
+insert into orders values (1,1001,1),
+						  (2,1002,1),
+                          (3,1003,2),
+                          (4,1004,1),
+                          (5,1005,3),
+                          (6,1006,4),
+                          (7,1007,7),
+                          (8,1008,5);
+insert into orders values (9,1009,8);
+select * from orders;
+select * from person;
+
+# inner join 
+select p.name as Person_Name , 
+	   o.OrderNumber as Order_Number       
+from Person as p 
+join orders as o
+on p.id = o.custId;
+
+-- left and right joins 
+drop table employee;
+create table employee ( id int  , name varchar(20) , age int );
+insert into employee values (1 , 'aishwarya' , 23 ),
+							(2 , 'pooja' ,     21 ),
+							(3 , 'vaishanavi' , 22 ),
+                            (4 , 'sayali' ,     23 ),
+                            (5 , 'shivmala' ,   24 ),
+                            (6 , 'shradha' ,    25 ),
+							(7 , 'chaitnya' , 	26);
+
+create table department ( id int   , d_Name varchar(20) , empid int );
+insert into department values( 1 , 'trainer',  1),
+							( 1 , 'Sales',     2),
+                            ( 2 , 'marketing', 3),
+                            ( 3 , 'management',4),
+                            ( 4 , 'sales',     5),
+                            ( 5 , 'Admin',     8),
+                            ( 6 , 'trainer',   9),
+                            ( 7 , 'Support',  10);
+select * from department;
+select * from employee;
+
+# ineer join
+select name , d_Name from employee as e  inner join department as d
+on e.id = d.empid;
+
+# left join
+select name , d_Name from employee as e  left outer join department as d
+on e.id = d.empid;
+
+# right join
+select name , d_Name from employee as e  right outer join department as d
+on e.id = d.empid;
+
+# cross join 
+select * from employee as e cross join department as d order by  e.id , d.id ;
+
+# ---------------- self join ---------------- 
+create table Customer ( id int , name varchar(20) , age int , address varchar(20));
+insert into Customer values ( 1 , 'ram' ,   24 , 'aayodhya'),
+							( 2 , 'shyam' , 25 , 'hadpsar'),
+                            ( 3 , 'laxman' ,26 , 'solapur'),
+                            ( 4 , 'krishna' ,27 , 'satara'),
+                            ( 5 , 'balram' , 28 , 'hadpsar'),
+                            ( 6 , 'radha' , 29 , 'solapur'),
+                            ( 7 , 'revati' , 30 , 'kolhapur'),
+                            ( 8 , 'sita' ,   31 , 'Pune'),
+                            ( 9 , 'parth' , 32 , 'Nashik');
+select * from customer limit 2;
+# to display the customer name who live on same address 
+select c1.name , c1.address from customer as c1 , customer as c2 
+where c1.address = c2.address and c1.id <> c2.id ;
+
+
+select * from employee;
+select distinct salary from employee order by salary desc limit 0, 1;
+select distinct salary from employee order by salary desc;
+
+
+drop table employee;
+# to display the Nth Highest salary 
+select * from employee;
+create table employee ( id int , name varchar(20) , age int ,
+dept varchar(20) , salary int , manager varchar(20));
+insert into employee values (1 , 'aishwarya' , 23 , 'trainer' , 10000 , 'Vinayak Patil'),
+							(2 , 'rutuja ' ,   20 , 'trainer' , 20000 , 'Vinayak Patil'),
+                            (3 , 'vaishanavi' , 21 , 'Support' , 30000 , 'Vinayak Patil'),
+                            (4 , 'shivmala' , 22 ,   'Sales' ,     40000 , 'Vinayak Patil'),
+                            (5 , 'rushikesh' , 23 , 'Placement' ,70000 , 'Vinayak Patil'),
+                            (6 , 'chaitnya' , 24 ,  'Marketing' , 10000 , 'Kalyani Patil'),
+                            (7 , 'prajakta' , 19 ,  'trainer' , 20000 , 'Kalyani Patil'),
+                            (8 , 'sayali' , 19 ,    'Sales' ,     90000 , 'Kalyani Patil'),
+                            (9 , 'Pooja' , 18,     'Marketing' ,   100000 , 'Kalyani Patil'),
+                            (10 ,'Shradha' , 30 ,  'Manager' , 200000 , 'Kalyani Patil');
+                            
+select * from employee;
+# 1st heightest  salary
+select max(salary) from employee;
+
+#2nd heightest salary 
+select max(Salary) from employee where salary < ( select max(salary) from employee);
+
+select max(Salary) from employee where salary <( select max(salary) from employee);
+
+# 3rd heightest salary 
+select max(Salary) from employee 
+where salary < (	select max(Salary) from employee 
+					where salary < ( 	select max(salary) from employee));
+                    
+select * from employee order by salary desc ;
+
+# Nth Heights 
+# 4 th highest salary we need to write n-1 
+select distinct salary from employee order by salary desc limit 0, 1;
+
+drop table employee;
+create table employee( id int , name varchar(20) , dept varchar(20) , salary int );
+ insert into employee values(1 , "aishwarya","HR",10000),
+							(2 , "rutuja","IT",25000),
+							(3 , "omkar","Sales",25000),
+							(4 , "shruti","IT",20000),
+							(5 , "akshay","HR",38000);
+
+select * from employee;
+
+# case statemenet 
+select id , name , dept , salary ,
+case 
+	when salary > 30000 then 'High Salary'
+    when salary > 20000 then 'Medium Salary'
+    else 'Low Salary'
+end as Category from employee;
+
+
+
+
+
+
+
+
+
+
